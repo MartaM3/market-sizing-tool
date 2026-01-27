@@ -1,0 +1,50 @@
+""" This tool works as follows:
+ - Takes a base market size (e.g., total customers, total sales, or volume)
+ - Allows the user to define growth scenarios: optimistic, base, and pessimistic
+- Calculates TAM (Total Addressable Market), SAM (Serviceable Addressable Market), and SOM (Share of Market)
+#- Displays the results in both a table and a chart
+"""
+import pandas as pd
+import matplotlib.pyplot as plt
+
+print("=== Market Sizing Tool ===")
+
+# Step 1: Inputs from user
+market_name = input("Enter the market/product name: ")
+TAM_base = float(input("Enter the Total Addressable Market (TAM) in units or $: "))
+SAM_percent = float(input("Enter the Serviceable Addressable Market (SAM) as % of TAM: "))
+SOM_percent = float(input("Enter your target market share (SOM) as % of SAM: "))
+
+# Step 2: Define scenarios
+print("\nEnter growth scenarios as % (e.g., 10 for 10%)")
+growth_optimistic = float(input("Optimistic scenario growth: "))
+growth_base = float(input("Base scenario growth: "))
+growth_pessimistic = float(input("Pessimistic scenario growth: "))
+
+# Step 3: Calculate scenario values
+scenarios = {
+    "Optimistic": TAM_base * (1 + growth_optimistic / 100),
+    "Base": TAM_base * (1 + growth_base / 100),
+    "Pessimistic": TAM_base * (1 + growth_pessimistic / 100)
+}
+
+SAM_values = {k: v * SAM_percent / 100 for k, v in scenarios.items()}
+SOM_values = {k: v * SOM_percent / 100 for k, v in SAM_values.items()}
+
+# Step 4: Create DataFrame
+df = pd.DataFrame({
+    "TAM": scenarios,
+    "SAM": SAM_values,
+    "SOM": SOM_values
+})
+
+print("\nMarket Sizing Table:")
+print(df)
+
+# Step 5: Plot
+df.plot(kind='bar', figsize=(8,5))
+plt.title(f"Market Sizing Scenarios for {market_name}")
+plt.ylabel("Market Size")
+plt.xticks(rotation=0)
+plt.show()
+
