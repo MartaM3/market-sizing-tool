@@ -9,19 +9,19 @@ import matplotlib.pyplot as plt
 
 print("=== Market Sizing Tool ===")
 
-# Step 1: Inputs from user
+# Inputs from user
 market_name = input("Enter the market/product name: ")
 TAM_base = float(input("Enter the Total Addressable Market (TAM) in units or $: "))
 SAM_percent = float(input("Enter the Serviceable Addressable Market (SAM) as % of TAM: "))
 SOM_percent = float(input("Enter your target market share (SOM) as % of SAM: "))
 
-# Step 2: Define scenarios
+#  Define scenarios
 print("\nEnter growth scenarios as % (e.g., 10 for 10%)")
 growth_optimistic = float(input("Optimistic scenario growth: "))
 growth_base = float(input("Base scenario growth: "))
 growth_pessimistic = float(input("Pessimistic scenario growth: "))
 
-# Step 3: Calculate scenario values
+# Calculate scenario values
 scenarios = {
     "Optimistic": TAM_base * (1 + growth_optimistic / 100),
     "Base": TAM_base * (1 + growth_base / 100),
@@ -31,7 +31,7 @@ scenarios = {
 SAM_values = {k: v * SAM_percent / 100 for k, v in scenarios.items()}
 SOM_values = {k: v * SOM_percent / 100 for k, v in SAM_values.items()}
 
-# Step 4: Create DataFrame
+#  Create DataFrame
 df = pd.DataFrame({
     "TAM": scenarios,
     "SAM": SAM_values,
@@ -41,7 +41,7 @@ df = pd.DataFrame({
 print("\nMarket Sizing Table:")
 print(df)
 
-# Step 5: Plot
+#  Plot
 df.plot(kind='bar', figsize=(8,5))
 plt.title(f"Market Sizing Scenarios for {market_name}")
 plt.ylabel("Market Size")
