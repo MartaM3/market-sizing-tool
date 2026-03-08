@@ -35,5 +35,12 @@ python -m market_sizing.cli \
 ```bash
 pytest -q
 ```
+## Example output
 
+```text
+Scenario results:
+   Scenario  GrowthRate           TAM           SAM           SOM
+      Base       0.02  1020000000.0  306000000.0   15300000.0
+ Optimistic    0.08  1080000000.0  324000000.0   16200000.0
+Pessimistic   -0.05   950000000.0  285000000.0   14250000.0
 
