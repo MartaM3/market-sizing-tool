@@ -1,23 +1,39 @@
-# Market Sizing Tool
+# Market Sizing & Scenario Analysis Tool (Python)
 
-**Interactive Python tool to estimate TAM, SAM, and SOM under multiple scenarios.**
+Reproducible scenario analysis tool to estimate **TAM / SAM / SOM** under multiple growth assumptions and run a simple **sensitivity analysis**.
 
----
+## Install (local)
 
-## Overview
+```bash
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install -e ".[dev]"
+```
+## Run (CLI)
+### Scenario results (with optional CSV export)
+```bash
+python -m market_sizing.cli \
+  --tam 1e9 --sam 30 --som 5 \
+  --growth Base=0.02 Optimistic=0.08 Pessimistic=-0.05 \
+  --out results.csv
+```
+### Sensitivity grid
+```bash
+python -m market_sizing.cli \
+  --tam 1e9 --sam 30 --som 5 \
+  --growth Base=0.02 Optimistic=0.08 Pessimistic=-0.05 \
+  --sensitivity --sens-out sensitivity.csv
+```
 
-This project is an **interactive market sizing tool** implemented in Python. It allows users to estimate the **Total Addressable Market (TAM), Serviceable Addressable Market (SAM), and Share of Market (SOM)** under multiple growth scenarios: optimistic, base, and pessimistic.
 
-The tool is designed to support **data-driven strategic decision-making**, demonstrating analytical thinking, scenario analysis, and the ability to transform raw market data into actionable insights.
+## What it does
+- Validates inputs (percent ranges, empty scenarios, etc.)
+- Produces scenario tables (optional CSV export)
+- Computes an optional sensitivity grid over assumptions
 
----
+## Run tests
+```bash
+pytest -q
+```
 
-## Features
 
-- Input any **market/product name** and key parameters (TAM, SAM %, SOM %).  
-- Define **growth scenarios** (optimistic, base, pessimistic).  
-- Automatically calculates TAM, SAM, and SOM for each scenario.  
-- Outputs a **clear table** of results.  
-- Generates a **visual chart** to compare scenarios.  
-
----
